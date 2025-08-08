@@ -1,6 +1,7 @@
 import { relations } from "drizzle-orm";
 import { integer, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
+//pgTable: Função para definir uma tabela PostgreSQL.
 export const userTable = pgTable("user", {
   id: uuid().primaryKey().defaultRandom(),
   name: text().notNull(),
@@ -13,6 +14,7 @@ export const categoryTable = pgTable("category", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+//Define que uma categoria pode ter vários produtos (1:N).
 export const categoryRelations = relations(categoryTable, ({ many }) => ({
   products: many(productTable),
 }));
